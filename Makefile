@@ -1,10 +1,10 @@
 HDRS		= includes
 CFLAGS 		= -Wall -Wextra -Werror -g
-PS_MAIN		= srcs/main.c
-SRCS		=
-
+SRCS		= srcs/utils.c
+TEST		= tests/command_exists.c
 AR			= ar -rcsv
 NAME		= pipex
+MAIN		= srcs/$(NAME).c
 OBJS		= ${SRCS:.c=.o}
 
 all: $(NAME)
@@ -14,10 +14,10 @@ libft.a:
 	mv ./libft/libft.a ./libft.a
 
 $(NAME): libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft $(SRCS) $(PS_MAIN) -o $(NAME)
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=0 $(SRCS) $(MAIN) -o $(NAME)
 
-checker: libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft $(CHECKER_SRC) $(SRCS) -o checker
+test: libft.a
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(TEST) $(SRCS) -o test
 
 clean:
 	rm ./$(NAME)
@@ -29,5 +29,3 @@ fclean:
 	rm -rf ./__.SYMDEF\ SORTED
 
 re: clean all
-
-re_checker: clean_checker checker
