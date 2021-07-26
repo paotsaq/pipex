@@ -6,7 +6,7 @@
 /*   By: apinto <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 17:12:52 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/26 18:34:38 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/26 18:49:08 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 	{
-		printf("Wrong number of arguments! 😗");
+		printf("Wrong number of arguments! 😗\n");
 		return (-1);
 	}
 	if (access(argv[1], R_OK) == -1)

@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/26 18:29:49 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/26 19:11:05 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ char **get_path_variables(char **envp)
 
 	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
-	printf("%s\n", *envp);
+	if (DEBUG)
+		printf("%s\n", *envp);
 	paths = ft_split(*envp, ':');
 	return paths;
 }
 
+/* if validation of path is successful, has a side effect:
+ * info->concatenated_path stores the path to the binary! */
 int	check_valid_command(s_info *info, char *command)
 {
 	int i;
@@ -57,7 +60,7 @@ int	commands_handler(s_info *info, char *command)
 	split_command = ft_split(command, ' ');
 	if (!split_command)
 		return (-1);
-	// should free stuff?
+	// 🧨 should free stuff?
 	if (check_valid_command(info, split_command[0]) == -1)
 		return (-1);
 	else

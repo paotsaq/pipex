@@ -1,10 +1,11 @@
 HDRS		= includes
 CFLAGS 		= -Wall -Wextra -Werror -g
 SRCS		= srcs/utils.c
-TEST		= tests/command_exists.c
+TESTS		= tests/command_exists.c
 AR			= ar -rcsv
 NAME		= pipex
 MAIN		= srcs/$(NAME).c
+TEST_MAIN	= tests/main.c
 OBJS		= ${SRCS:.c=.o}
 
 all: $(NAME)
@@ -17,7 +18,7 @@ $(NAME): libft.a
 	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=0 $(SRCS) $(MAIN) -o $(NAME)
 
 test: libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(TEST) $(SRCS) -o test
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(TEST_MAIN) $(TESTS) $(SRCS) -o test
 
 clean:
 	rm ./$(NAME)

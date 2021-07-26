@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/26 18:16:58 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/26 18:46:07 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,7 @@ char **get_path_variables(char **envp);
 int	commands_handler(s_info *info, char *command);
 int	check_valid_command(s_info *info, char *command);
 int	initialize_info(s_info *info, char **argv, char **envp);
+
+/* testing */
+void	test_command_exists(s_info *info, char *command);
+
