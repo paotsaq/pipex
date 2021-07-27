@@ -1,6 +1,7 @@
 HDRS		= includes
 CFLAGS 		= -Wall -Wextra -Werror -g
-SRCS		= srcs/utils.c
+SRCS		= srcs/utils.c \
+			  srcs/execute_command.c
 TESTS		= tests/command_exists.c
 AR			= ar -rcsv
 NAME		= pipex

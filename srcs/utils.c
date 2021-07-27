@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/26 19:11:05 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/27 00:52:12 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	commands_handler(s_info *info, char *command)
 		return (-1);
 	else
 	{
+		execute_command(info, split_command);
 		return (1);
 	}
 }
@@ -76,6 +77,7 @@ int	initialize_info(s_info *info, char **argv, char **envp)
 	info->sec_comm = argv[3];
 	info->outfile = argv[4];
 	info->paths = get_path_variables(envp);
+	info->envp = envp;
 	if (!info->paths)
 		return (-1);
 	return (1);
