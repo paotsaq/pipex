@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/27 20:00:02 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/28 07:34:36 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	commands_handler(s_info *info, char *command)
 
 int	initialize_info(s_info *info, char **argv, char **envp)
 {
+	info->infile = argv[0];
 	info->infile = argv[1];
 	info->fst_comm = argv[2];
 	info->sec_comm = argv[3];

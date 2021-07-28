@@ -1,7 +1,9 @@
 HDRS		= includes
 CFLAGS 		= -Wall -Wextra -Werror -g
 SRCS		= srcs/utils.c \
-			  srcs/execute_command.c
+			  srcs/execute_command.c \
+			  srcs/file_handler.c
+
 TESTS		= tests/command_exists.c
 AR			= ar -rcsv
 NAME		= pipex
@@ -17,6 +19,9 @@ libft.a:
 
 $(NAME): libft.a
 	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=0 $(SRCS) $(MAIN) -o $(NAME)
+
+debug: libft.a
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(SRCS) $(MAIN) -o $(NAME)
 
 test: libft.a
 	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(TEST_MAIN) $(TESTS) $(SRCS) -o test
