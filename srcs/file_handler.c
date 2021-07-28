@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/28 18:41:49 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/28 20:49:19 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ int	file_handler(s_info *info, int in)
 	else if (in)
 	{
 		info->infile_fd = open(info->infile, O_RDONLY);
-		printf("infile is in fd %d\n", info->infile_fd);
 		if (info->infile_fd == -1)
 			return (-1);
 	}
-	else
-	{
-		info->outfile_fd = open(info->outfile, O_WRONLY | O_CREAT);
-		if (info->outfile_fd == -1)
-			return (-1);
-	}
+	info->outfile_fd = open(info->outfile,
+			O_RDWR | O_CREAT | O_TRUNC, 0777);
+	if (info->outfile_fd == -1)
+		return (-1);
 	return (1);
 }
