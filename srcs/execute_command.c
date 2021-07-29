@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/29 11:51:01 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/29 20:51:24 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,39 @@ int execute_command(s_info *info, char **command)
 {
 	int err;
 	int pid;
+	// char buffer[100];
 
 	printf("I'm executing command %s with args %s\n", command[0], command[1]);
 	info->command_count++;
+	if (pipe(info->current_pipe) == -1)
+		return (-1);
 	pid = fork();
 	if (pid == 0)
 	{
 		if (info->command_count == 1)
-			dup2(info->infile_fd, STDIN_FILENO);
-		else
-			dup2(info->pipe_fd[0], STDIN_FILENO);
-		if (info->command_count == info->argc - 3)
 		{
-			printf("got in!\n");
-			dup2(info->outfile_fd, STDOUT_FILENO);
+			dup2(info->infile_fd, STDIN_FILENO);
+			close(info->current_pipe[0]);
 		}
 		else
-			dup2(info->pipe_fd[1], STDOUT_FILENO);
+			dup2(info->previous_pipe[0], STDIN_FILENO);
+		if (info->command_count == info->argc - 3)
+		{
+			dup2(info->outfile_fd, STDOUT_FILENO);
+			close(info->current_pipe[1]);
+		}
+		else
+			dup2(info->current_pipe[1], STDOUT_FILENO);
 		err = execve(info->concatenated_path, command, info->envp);
 		if (err == -1)
 			printf("failed execution of %s\n", command[0]);
 	}
+	// read(info->current_pipe[0], buffer, 20);
+	// buffer[20] = '\0';
+	// printf("buffer is %s\n", buffer);
+	close(info->current_pipe[1]);
 	wait(NULL);
-	close(info->pipe_fd[1]);
+	info->previous_pipe[0] = info->current_pipe[0];
+	info->previous_pipe[1] = info->current_pipe[1];
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/29 11:50:46 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/29 20:11:00 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	initialize_info(s_info *info, int argc, char **argv, char **envp)
 	info->envp = envp;
 	info->argv = argv;
 	info->argc = argc;
-	if (pipe(info->pipe_fd) == -1)
-		return (-1);
 	if (!info->paths)
 		return (-1);
 	return (1);
