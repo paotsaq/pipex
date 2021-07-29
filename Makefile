@@ -2,6 +2,7 @@ HDRS		= includes
 CFLAGS 		= -Wall -Wextra -Werror -g
 SRCS		= srcs/utils.c \
 			  srcs/execute_command.c \
+			  srcs/commands_handler.c \
 			  srcs/file_handler.c
 
 TESTS		= tests/command_exists.c

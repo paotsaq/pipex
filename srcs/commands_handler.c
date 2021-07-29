@@ -6,11 +6,11 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/29 08:23:23 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/29 11:13:06 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../includes/pipex.h"
 
 /* if validation of path is successful, has a side effect:
  * info->concatenated_path stores the path to the binary! */
@@ -22,7 +22,10 @@ int	check_valid_command(s_info *info, char *command)
 	while (info->paths[++i])
 	{
 		ft_bzero(info->concatenated_path, 1024);
-		ft_strlcat(info->concatenated_path, info->paths[i], 1024);
+		if (i == 0 && ft_strncmp(info->paths[i], "PATH=", 5) == 0)
+			ft_strlcat(info->concatenated_path, (info->paths[i] + 5), 1024);
+		else
+			ft_strlcat(info->concatenated_path, info->paths[i], 1024);
 		ft_strlcat(info->concatenated_path, "/", 1024);
 		ft_strlcat(info->concatenated_path, command, 1024);
 		if (access(info->concatenated_path, F_OK) == 0 &&
@@ -39,14 +42,21 @@ int	check_valid_command(s_info *info, char *command)
 	return (-1);
 }
 
-int	commands_handler(s_info *info, char *command)
+/* splits the command */
+static void prepare_command(s_info *info, char ***split_command)
+{
+	*split_command = ft_split(info->argv[info->command_count + 2], ' ');
+}
+
+int	commands_handler(s_info *info)
 {
 	char **split_command;
 
-	split_command = ft_split(command, ' ');
+	prepare_command(info, &split_command);
 	if (!split_command)
 		return (-1);
 	check_valid_command(info, split_command[0]);
 	execute_command(info, split_command);
 	free(split_command);
+	return (1);
 }

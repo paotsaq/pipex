@@ -15,7 +15,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	s_info info;
 
-	if (argc != 5)
+	if (argc < 5)
 	{
 		printf("Wrong number of arguments! 😗\n");
 		return (-1);
@@ -23,11 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	if (initialize_info(&info, argc, argv, envp) == -1)
 		return (-1);
 	file_handler(&info, 1);
-	while (info.command_count != argc)
-	{
-		// prepare_command;
-		commands_handler(&info, argv[info.command_count + 1]);
-		// free_command;
-	}
+	while (info.command_count != argc - 3)
+		commands_handler(&info);
 	return (0);
 }

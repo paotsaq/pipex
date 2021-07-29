@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/29 07:41:27 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/29 11:04:31 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct command_info {
 }				s_info;
 
 char **get_path_variables(char **envp);
-int	commands_handler(s_info *info, char *command);
+int	commands_handler(s_info *info);
 int	check_valid_command(s_info *info, char *command);
 int	initialize_info(s_info *info, int argc, char **argv, char **envp);
 int execute_command(s_info *info, char **command);
