@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/28 20:54:02 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/29 08:07:57 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,26 @@
     fd[1]; //-> for using write end*/
 int execute_command(s_info *info, char **command)
 {
-	int pid1;
-	int pid2;
 	int err;
-	int fd[2];
+	int pid;
 
-	if (pipe(fd) == -1)
-		return (-1);
-	pid1 = fork();
-	if (pid1 == 0)
+	pid = fork();
+	if (pid == 0)
 	{
-		dup2(info->infile_fd, STDIN);
-		dup2(fd[1], STDOUT);
+		if (info->command_count == 0)
+			dup2(info->infile_fd, STDIN_FILENO);
+		else
+			dup2(info->pipe_fd[0], STDIN_FILENO);
+		if (info->command_count == info->argc - 1)
+			dup2(info->outfile_fd, STDOUT_FILENO);
+		else
+			dup2(info->pipe_fd[1], STDOUT_FILENO);
 		err = execve(info->concatenated_path, ft_split("cat", ' '), info->envp);
 		if (err == -1)
 			printf("failed execution of %s\n", command[0]);
 	}
-	waitpid(pid1, NULL, 0);
-	close(fd[1]);
-	pid2 = fork();
-	if (pid2 == 0)
-	{
-		dup2(fd[0], STDIN);
-		dup2(info->outfile_fd, STDOUT);
-		err = execve("/usr/bin/wc", ft_split("wc", ' '), info->envp);
-		if (err == -1)
-			printf("failed execution of %s\n", "wc");
-	}
-	waitpid(pid2, NULL, 0);
+	wait(NULL);
+	info->command_count++;
+	close(info->pipe_fd[1]);
 	return (1);
 }

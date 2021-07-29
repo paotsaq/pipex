@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/28 07:34:26 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/29 07:41:27 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,24 @@
 # define STDERR 2
 
 typedef struct command_info {
-	int pipe[2];
-	char *exec_name;
-	char *infile;
-	int	infile_fd;
-	char *outfile;
-	int	outfile_fd;
-	char *comm_output;
-	char *fst_comm;
-	char *sec_comm;
-	char **paths;
-	char **envp;
-	char **argv;
-	char concatenated_path[1024];
+	int		pipe_fd[2];
+	char	*exec_name;
+	char	*infile;
+	int		infile_fd;
+	char	*outfile;
+	int		command_count;
+	int		outfile_fd;
+	char	**paths;
+	char	**envp;
+	int		argc;
+	char	**argv;
+	char	concatenated_path[1024];
 }				s_info;
 
 char **get_path_variables(char **envp);
 int	commands_handler(s_info *info, char *command);
 int	check_valid_command(s_info *info, char *command);
-int	initialize_info(s_info *info, char **argv, char **envp);
+int	initialize_info(s_info *info, int argc, char **argv, char **envp);
 int execute_command(s_info *info, char **command);
 int	file_handler(s_info *info, int in);
 

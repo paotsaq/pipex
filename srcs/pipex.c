@@ -20,9 +20,14 @@ int	main(int argc, char **argv, char **envp)
 		printf("Wrong number of arguments! 😗\n");
 		return (-1);
 	}
-	if (initialize_info(&info, argv, envp) == -1)
+	if (initialize_info(&info, argc, argv, envp) == -1)
 		return (-1);
 	file_handler(&info, 1);
-	commands_handler(&info, info.fst_comm);
+	while (info.command_count != argc)
+	{
+		// prepare_command;
+		commands_handler(&info, argv[info.command_count + 1]);
+		// free_command;
+	}
 	return (0);
 }

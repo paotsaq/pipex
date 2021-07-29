@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/28 20:49:19 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/28 21:07:32 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	file_handler(s_info *info, int in)
 {
-	// one could make this print as an error
 	if (in && access(info->infile, R_OK) == -1)
 	{
 		printf("no such file or directory: %s\n", info->infile);
