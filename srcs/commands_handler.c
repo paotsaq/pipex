@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 17:30:40 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 19:53:23 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	check_valid_command(s_info *info, char *command)
 	return (-1);
 }
 
-/* splits the command */
 static void prepare_command(s_info *info, char ***split_command)
 {
 	*split_command = ft_split(info->argv[info->command_count + 2], ' ');

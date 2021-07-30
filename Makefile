@@ -5,7 +5,11 @@ SRCS		= srcs/utils.c \
 			  srcs/commands_handler.c \
 			  srcs/file_handler.c
 
-TESTS		= tests/command_exists.c
+DEFAULT		= srcs/check_number_arguments.c
+
+BONUS		= srcs/check_number_arguments_bonus.c \
+			  srcs/heredoc_bonus.c
+
 AR			= ar -rcsv
 NAME		= pipex
 MAIN		= srcs/$(NAME).c
@@ -19,13 +23,10 @@ libft.a:
 	mv ./libft/libft.a ./libft.a
 
 $(NAME): libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=0 $(SRCS) $(MAIN) -o $(NAME)
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D $(SRCS) $(DEFAULT) $(MAIN) -o $(NAME)
 
-debug: libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(SRCS) $(MAIN) -o $(NAME)
-
-test: libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D DEBUG=1 $(TEST_MAIN) $(TESTS) $(SRCS) -o test
+bonus: libft.a
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D $(SRCS) $(BONUS) $(MAIN) -o $(NAME)
 
 clean:
 	rm ./$(NAME)
