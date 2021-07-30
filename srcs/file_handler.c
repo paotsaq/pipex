@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/28 21:07:32 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 07:00:54 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@ int	file_handler(s_info *info, int in)
 		if (info->infile_fd == -1)
 			return (-1);
 	}
-	info->outfile_fd = open(info->outfile,
-			O_RDWR | O_CREAT | O_TRUNC, 0777);
-	if (info->outfile_fd == -1)
+	if (access(info->outfile, R_OK) == 1 &&
+		access(info->outfile, W_OK) == -1)
+	{
+		printf("permission denied: %s\n", info->outfile);
 		return (-1);
+	}
+	else
+		info->outfile_fd = open(info->outfile,
+				O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	return (1);
 }

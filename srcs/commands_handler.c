@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/29 11:13:06 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 06:51:41 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	commands_handler(s_info *info)
 	if (!split_command)
 		return (-1);
 	check_valid_command(info, split_command[0]);
+	if (pipe(info->current_pipe) == -1)
+		return (-1);
 	execute_command(info, split_command);
 	free(split_command);
 	return (1);
