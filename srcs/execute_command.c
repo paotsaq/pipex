@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 06:59:42 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 16:56:23 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int execute_command(s_info *info, char **command)
 		else
 			dup2(info->current_pipe[1], STDOUT_FILENO);
 		err = execve(info->concatenated_path, command, info->envp);
-		if (err == -1)
-			printf("failed execution of %s\n", command[0]);
 	}
 	wait(NULL);
 	close(info->current_pipe[1]);

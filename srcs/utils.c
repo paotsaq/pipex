@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 07:11:04 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 17:08:32 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char **get_path_variables(char **envp)
 
 int	initialize_info(s_info *info, int argc, char **argv, char **envp)
 {
+	info->exec_name = argv[0] + 2;
 	info->infile = argv[1];
 	info->outfile = argv[argc - 1];
 	info->command_count = 0;

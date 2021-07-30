@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 06:51:41 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 17:21:10 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	check_valid_command(s_info *info, char *command)
 		if (access(info->concatenated_path, F_OK) == 0 &&
 			access(info->concatenated_path, X_OK) == -1)
 		{
-			printf("permission denied: %s\n", command);
+			perror(info->exec_name);
 			return (-1);
 		}
 		else if (access(info->concatenated_path, F_OK) == 0 &&
 			access(info->concatenated_path, X_OK) == 0)
 			return (1);
 	}
-	printf("command not found: %s\n", command);
+	perror(info->exec_name);
 	return (-1);
 }
 

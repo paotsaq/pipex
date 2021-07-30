@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 07:00:54 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 17:21:13 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	file_handler(s_info *info, int in)
 {
 	if (in && access(info->infile, R_OK) == -1)
 	{
-		printf("no such file or directory: %s\n", info->infile);
+		perror(info->exec_name);
 		return (-1);
 	}
 	else if (in)
@@ -28,7 +28,7 @@ int	file_handler(s_info *info, int in)
 	if (access(info->outfile, R_OK) == 1 &&
 		access(info->outfile, W_OK) == -1)
 	{
-		printf("permission denied: %s\n", info->outfile);
+		perror(info->exec_name);
 		return (-1);
 	}
 	else
