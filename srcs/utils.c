@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 17:08:32 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/30 17:28:46 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char **get_path_variables(char **envp)
 
 	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
 		envp++;
-	if (DEBUG)
-		printf("%s\n", *envp);
 	paths = ft_split(*envp, ':');
 	return paths;
 }
