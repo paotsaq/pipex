@@ -6,13 +6,13 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 16:56:12 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:36:42 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	file_handler_in(s_info *info)
+int	file_handler_in(t_info *info)
 {
 	if (access(info->infile, F_OK | R_OK) == -1)
 	{
@@ -36,11 +36,11 @@ int	file_handler_in(s_info *info)
 	return (1);
 }
 
-int	file_handler_out(s_info *info)
+int	file_handler_out(t_info *info)
 {
-	if (access(info->outfile, F_OK) != -1 &&
-			(access(info->outfile, R_OK) == -1 ||
-			 access(info->outfile, W_OK) == -1))
+	if (access(info->outfile, F_OK) != -1
+		&& (access(info->outfile, R_OK) == -1
+			|| access(info->outfile, W_OK) == -1))
 	{
 		perror(info->exec_name);
 		return (-1);

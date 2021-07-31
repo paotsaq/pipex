@@ -13,7 +13,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	s_info info;
+	t_info	info;
 
 	if (check_argument_number(argc) == -1)
 		return (-1);
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	if (BONUS && ft_strcmp(argv[1], "here_doc") == 0)
 	{
-	 	infile_is_heredoc(&info);
+		infile_is_heredoc(&info);
 		info.command_count++;
 	}
 	else if (file_handler_in(&info) == -1)

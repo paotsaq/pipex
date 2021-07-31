@@ -6,13 +6,13 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 18:19:20 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:36:33 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static	void pipe_management(s_info *info)
+static	void	pipe_management(t_info *info)
 {
 	info->previous_pipe[0] = info->current_pipe[0];
 	info->previous_pipe[1] = info->current_pipe[1];
@@ -22,9 +22,9 @@ static	void pipe_management(s_info *info)
  * fd_2 will point to the same stream as fd_1
  *  fd[0]; //-> for using read end
     fd[1]; //-> for using write end */
-int execute_command(s_info *info, char **command)
+int	execute_command(t_info *info, char **command)
 {
-	int pid;
+	int	pid;
 
 	info->command_count++;
 	pid = fork();
