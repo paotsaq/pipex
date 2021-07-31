@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 20:17:03 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 22:01:10 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	execute_command(t_info *info, char **command)
 			dup2(info->outfile_fd, STDOUT_FILENO);
 		else
 			dup2(info->current_pipe[1], STDOUT_FILENO);
-		if (!(info->command_count == 1 && !info->allow_first)
-				&& (info->command_count == info->argc - 3 && !info->allow_last))
+		if (!((info->command_count == 1 && !info->allow_first)
+				&& (info->command_count == info->argc - 3 && !info->allow_last)))
 			execve(info->concatenated_path, command, info->envp);
 	}
 	wait(NULL);
