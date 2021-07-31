@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 12:14:20 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:19:20 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int execute_command(s_info *info, char **command)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (info->command_count == 1)
+		if (BONUS && info->command_count == 2)
+			dup2(info->heredoc_pipe[0], STDIN_FILENO);
+		else if (info->command_count == 1)
 			dup2(info->infile_fd, STDIN_FILENO);
 		else
 			dup2(info->previous_pipe[0], STDIN_FILENO);

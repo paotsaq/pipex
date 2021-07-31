@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 12:04:41 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 18:17:55 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ int	commands_handler(s_info *info)
 {
 	char **split_command;
 
-	if (info->command_count == 0 && info->skip_first == 1)
-	{
-		info->command_count = 1;
-		return (1);
-	}
 	prepare_command(info, &split_command);
 	if (!split_command)
 		return (-1);

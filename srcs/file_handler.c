@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 12:47:20 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 16:56:12 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ int	file_handler_in(s_info *info)
 	if (access(info->infile, F_OK | R_OK) == -1)
 	{
 		perror(info->exec_name);
-		info->skip_first = 1;
 		if (pipe(info->current_pipe) == -1)
 			return (-1);
 		write(info->current_pipe[1], NULL, 0);
 		close(info->current_pipe[1]);
-		info->previous_pipe[0] = info->current_pipe[0];
+		dup2(info->current_pipe[0], info->infile_fd);
 		return (1);
 	}
 	else if (access(info->infile, F_OK) != -1)
