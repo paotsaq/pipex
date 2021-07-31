@@ -3,6 +3,7 @@ CFLAGS 		= -Wall -Wextra -Werror -g
 SRCS		= srcs/utils.c \
 			  srcs/execute_command.c \
 			  srcs/commands_handler.c \
+			  srcs/errors.c \
 			  srcs/file_handler.c
 
 DEFAULT		= srcs/check_number_arguments.c

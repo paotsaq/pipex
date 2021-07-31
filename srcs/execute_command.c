@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 18:36:33 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 19:56:38 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static	void	pipe_management(t_info *info)
     fd[1]; //-> for using write end */
 int	execute_command(t_info *info, char **command)
 {
-	int	pid;
+	int pid;
 
 	info->command_count++;
 	pid = fork();
@@ -40,7 +40,8 @@ int	execute_command(t_info *info, char **command)
 			dup2(info->outfile_fd, STDOUT_FILENO);
 		else
 			dup2(info->current_pipe[1], STDOUT_FILENO);
-		execve(info->concatenated_path, command, info->envp);
+		if (info->allow == 1)
+			execve(info->concatenated_path, command, info->envp);
 	}
 	wait(NULL);
 	close(info->current_pipe[1]);

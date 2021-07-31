@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 18:35:55 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 19:43:14 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <fcntl.h>
 # include <string.h>
 
+# define FILE_OR_DIR ": no such file or directory: "
+# define NO_PERM ": permission denied: "
+
 typedef struct s_command_info {
 	int		current_pipe[2];
 	int		previous_pipe[2];
@@ -26,6 +29,7 @@ typedef struct s_command_info {
 	int		infile_fd;
 	char	*outfile;
 	int		outfile_fd;
+	int		allow;
 	int		command_count;
 	char	**paths;
 	char	**envp;
@@ -42,6 +46,7 @@ int		execute_command(t_info *info, char	**command);
 int		file_handler_in(t_info *info);
 int		file_handler_out(t_info *info);
 int		check_argument_number(int argc);
+void	print_stdout_error(t_info *info, char *error, char *name);
 
 /* bonus */
 int		infile_is_heredoc(t_info *info);
