@@ -23,7 +23,7 @@ libft.a:
 	mv ./libft/libft.a ./libft.a
 
 $(NAME): libft.a
-	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D $(SRCS) $(DEFAULT) $(MAIN) -o $(NAME)
+	gcc $(CFLAGS) -I $(HDRS) -L. -l ft $(SRCS) $(DEFAULT) $(MAIN) -o $(NAME)
 
 bonus: libft.a
 	gcc $(CFLAGS) -I $(HDRS) -L. -l ft -D $(SRCS) $(BONUS) $(MAIN) -o $(NAME)

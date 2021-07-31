@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/30 06:07:44 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 07:59:21 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	check_valid_command(s_info *info, char *command);
 int	initialize_info(s_info *info, int argc, char **argv, char **envp);
 int execute_command(s_info *info, char **command);
 int	file_handler(s_info *info, int in);
+int	check_argument_number(int argc);
 
 /* testing */
 void	test_command_exists(s_info *info, char *command);
