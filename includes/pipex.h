@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 07:59:21 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 11:29:03 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct command_info {
 	int		infile_fd;
 	char	*outfile;
 	int		outfile_fd;
+	int		skip_first;
 	int		command_count;
 	char	**paths;
 	char	**envp;
@@ -40,7 +41,8 @@ int	commands_handler(s_info *info);
 int	check_valid_command(s_info *info, char *command);
 int	initialize_info(s_info *info, int argc, char **argv, char **envp);
 int execute_command(s_info *info, char **command);
-int	file_handler(s_info *info, int in);
+int	file_handler_in(s_info *info);
+int	file_handler_out(s_info *info);
 int	check_argument_number(int argc);
 
 /* testing */

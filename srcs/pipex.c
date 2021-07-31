@@ -19,7 +19,9 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	if (initialize_info(&info, argc, argv, envp) == -1)
 		return (-1);
-	if (file_handler(&info, 1) == -1)
+	if (file_handler_in(&info) == -1)
+		return (-1);
+	if (file_handler_out(&info) == -1)
 		return (-1);
 	while (info.command_count != argc - 3)
 		commands_handler(&info);
