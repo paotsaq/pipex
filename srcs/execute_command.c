@@ -6,11 +6,26 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 22:01:10 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 22:22:10 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+static int	command_is_first(t_info *info)
+{
+	return (info->command_count == 1);
+}
+
+static int	command_is_last(t_info *info)
+{
+	return (info->command_count == info->argc - 3);
+}
+
+static int	command_is_heredoc_command(t_info *info)
+{
+	return (info->command_count == 2);
+}
 
 static	void	pipe_management(t_info *info)
 {
@@ -24,24 +39,24 @@ static	void	pipe_management(t_info *info)
     fd[1]; //-> for using write end */
 int	execute_command(t_info *info, char **command)
 {
-	int pid;
+	int	pid;
 
 	info->command_count++;
 	pid = fork();
 	if (pid == 0)
 	{
-		if (BONUS && info->command_count == 2)
+		if (BONUS && command_is_heredoc_command(info))
 			dup2(info->heredoc_pipe[0], STDIN_FILENO);
-		else if (info->command_count == 1)
+		else if (command_is_first(info))
 			dup2(info->infile_fd, STDIN_FILENO);
 		else
 			dup2(info->previous_pipe[0], STDIN_FILENO);
-		if (info->command_count == info->argc - 3)
+		if (command_is_last(info))
 			dup2(info->outfile_fd, STDOUT_FILENO);
 		else
 			dup2(info->current_pipe[1], STDOUT_FILENO);
-		if (!((info->command_count == 1 && !info->allow_first)
-				&& (info->command_count == info->argc - 3 && !info->allow_last)))
+		if (!((command_is_first(info) && !info->allow_first)
+				&& (command_is_last(info) && !info->allow_last)))
 			execve(info->concatenated_path, command, info->envp);
 	}
 	wait(NULL);
