@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 20:32:10 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 20:58:45 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,17 @@ int	file_handler_out(t_info *info)
 			|| access(info->outfile, W_OK) == -1))
 	{
 		print_stdout_error(info, NO_PERM, info->outfile);
-		return (-1);
+		info->allow_last = 0;
+		return (handle_error_pipe(info));
 	}
 	else if (access(info->outfile, F_OK) != -1)
 		info->outfile_fd = open(info->outfile, O_WRONLY | O_TRUNC);
 	else
 		info->outfile_fd = open(info->outfile, O_WRONLY | O_CREAT, 0755);
+	if (info->outfile_fd == -1)
+	{
+		perror(info->exec_name);
+		return (-1);
+	}
 	return (1);
 }
