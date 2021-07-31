@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 19:43:14 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 20:22:15 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_command_info {
 	int		infile_fd;
 	char	*outfile;
 	int		outfile_fd;
-	int		allow;
+	int		allow_first;
+	int		allow_last;
 	int		command_count;
 	char	**paths;
 	char	**envp;

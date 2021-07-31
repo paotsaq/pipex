@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 19:51:05 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 20:24:42 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int	check_valid_command(t_info *info, char *command)
 			return (-1);
 		else if (access(info->concatenated_path, F_OK) == 0
 			&& access(info->concatenated_path, X_OK) == 0)
-		{
-			info->allow = 1;
 			return (1);
-		}
 	}
 	print_stdout_error(info, FILE_OR_DIR, command);
 	return (-1);

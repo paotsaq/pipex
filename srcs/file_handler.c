@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 19:56:17 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 20:32:10 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,7 @@ static int handle_error_pipe(t_info *info)
 
 int	file_handler_in(t_info *info)
 {
-	if (access(info->infile, F_OK) == -1)
-	{
-		print_stdout_error(info, FILE_OR_DIR, info->infile);
-		info->command_count++;
-		return (handle_error_pipe(info));
-	}
-	else if (access(info->infile, R_OK) == -1)
-	{
-		print_stdout_error(info, NO_PERM, info->infile);
-		info->command_count++;
-		return (handle_error_pipe(info));
-	}
-	else
+	if (access(info->infile, R_OK) != -1)
 	{
 		info->infile_fd = open(info->infile, O_RDONLY);
 		if (info->infile_fd == -1)
@@ -44,8 +32,14 @@ int	file_handler_in(t_info *info)
 			perror(info->exec_name);
 			return (-1);
 		}
+		return (1);
 	}
-	return (1);
+	if (access(info->infile, F_OK) == -1)
+		print_stdout_error(info, FILE_OR_DIR, info->infile);
+	else if (access(info->infile, R_OK) == -1)
+		print_stdout_error(info, NO_PERM, info->infile);
+	info->allow_first = 0;
+	return (handle_error_pipe(info));
 }
 
 int	file_handler_out(t_info *info)
@@ -54,7 +48,7 @@ int	file_handler_out(t_info *info)
 		&& (access(info->outfile, R_OK) == -1
 			|| access(info->outfile, W_OK) == -1))
 	{
-		perror(info->exec_name);
+		print_stdout_error(info, NO_PERM, info->outfile);
 		return (-1);
 	}
 	else if (access(info->outfile, F_OK) != -1)
