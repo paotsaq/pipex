@@ -19,7 +19,9 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	if (initialize_info(&info, argc, argv, envp) == -1)
 		return (-1);
-	if (file_handler_in(&info) == -1)
+	if (BONUS && ft_strcmp(argv[1], "here_doc") == 0)
+		infile_is_heredoc(&info);
+	else if (file_handler_in(&info) == -1)
 		return (-1);
 	if (file_handler_out(&info) == -1)
 		return (-1);

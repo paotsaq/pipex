@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 11:29:03 by apinto           ###   ########.fr       */
+/*   Updated: 2021/07/31 14:19:09 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
 
 typedef struct command_info {
 	int		current_pipe[2];
@@ -47,3 +43,6 @@ int	check_argument_number(int argc);
 
 /* testing */
 void	test_command_exists(s_info *info, char *command);
+
+/* bonus */
+int	infile_is_heredoc(s_info *info);
