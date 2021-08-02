@@ -1,5 +1,5 @@
 HDRS		= includes
-CFLAGS 		= -Wall -Wextra -Werror -g
+CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address
 SRCS		= srcs/utils.c \
 			  srcs/execute_command.c \
 			  srcs/commands_handler.c \

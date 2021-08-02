@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 14:34:59 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:25:15 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		file_handler_out(t_info *info);
 int		check_argument_number(int argc);
 void	print_stdout_error(t_info *info, char *error, char *name);
 int		handle_error_pipe(t_info *info);
+void	duplicate_pipe_to_previous(t_info *info);
 
 /* bonus */
 int		infile_is_heredoc(t_info *info);

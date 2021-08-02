@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:06:42 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 14:35:35 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:25:58 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,15 @@ int	handle_error_pipe(t_info *info)
 {
 	if (pipe(info->current_pipe) == -1)
 		return (-1);
-	write(info->current_pipe[1], "", 1);
 	close(info->current_pipe[1]);
-	dup2(info->current_pipe[0], info->infile_fd);
+	duplicate_pipe_to_previous(info);
+	dup2(info->previous_pipe[0], info->infile_fd);
 	info->skip_pipe_creation = 1;
 	return (1);
+}
+
+void	duplicate_pipe_to_previous(t_info *info)
+{
+	info->previous_pipe[0] = info->current_pipe[0];
+	info->previous_pipe[1] = info->current_pipe[1];
 }

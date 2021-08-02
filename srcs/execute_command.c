@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 13:13:16 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 16:03:16 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ static int	command_is_heredoc_command(t_info *info)
 	return (info->command_count == 2);
 }
 
-static	void	pipe_management(t_info *info)
-{
-	info->previous_pipe[0] = info->current_pipe[0];
-	info->previous_pipe[1] = info->current_pipe[1];
-}
-
 /* dup2(fd_1, fd_2)
  * fd_2 will point to the same stream as fd_1
  *  fd[0]; //-> for using read end
@@ -45,6 +39,7 @@ int	execute_command(t_info *info, char **command)
 	pid = fork();
 	if (pid == 0)
 	{
+		close(info->current_pipe[0]);
 		if (param_is_heredoc(info) && command_is_heredoc_command(info))
 			dup2(info->heredoc_pipe[0], STDIN_FILENO);
 		else if (command_is_first(info))
@@ -61,6 +56,6 @@ int	execute_command(t_info *info, char **command)
 	}
 	wait(NULL);
 	close(info->current_pipe[1]);
-	pipe_management(info);
+	duplicate_pipe_to_previous(info);
 	return (1);
 }
