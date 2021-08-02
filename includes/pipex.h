@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 15:25:15 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 18:30:07 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_command_info {
 	int		current_pipe[2];
 	int		previous_pipe[2];
 	int		heredoc_pipe[2];
+	int		null_pipe[2];
 	char	*exec_name;
 	char	*infile;
 	int		infile_fd;

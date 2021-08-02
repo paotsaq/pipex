@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 13:27:27 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 18:43:54 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	file_handler_in(t_info *info)
 		print_stdout_error(info, FILE_OR_DIR, info->infile);
 	else if (access(info->infile, R_OK) == -1)
 		print_stdout_error(info, NO_PERM, info->infile);
-	info->allow_first = 0;
+	// makes it skip the first command!
+	info->command_count++;
 	return (handle_error_pipe(info));
 }
 
