@@ -30,5 +30,6 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	while (info.command_count != argc - 3)
 		commands_handler(&info);
+	free_split_allocation(info.paths);
 	return (0);
 }

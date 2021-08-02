@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 11:07:15 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 18:30:07 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 19:32:59 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void	duplicate_pipe_to_previous(t_info *info);
 /* bonus */
 int		infile_is_heredoc(t_info *info);
 int		param_is_heredoc(t_info *info);
+void	free_split_allocation(char **split);
 
 #endif

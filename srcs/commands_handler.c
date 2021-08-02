@@ -6,11 +6,21 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/08/02 14:43:41 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 19:46:16 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+void	free_split_allocation(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i] != NULL)
+		free(split[i]);
+	free(split);
+}
 
 /* if validation of path is successful, has a side effect:
  * info->concatenated_path stores the path to the binary! */
@@ -64,6 +74,6 @@ int	commands_handler(t_info *info)
 			return (-1);
 		execute_command(info, split_command);
 	}
-	free(split_command);
+	free_split_allocation(split_command);
 	return (1);
 }
