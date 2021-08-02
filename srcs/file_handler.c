@@ -6,21 +6,11 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 19:31:46 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 22:23:21 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 13:27:27 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-static int	handle_error_pipe(t_info *info)
-{
-	if (pipe(info->current_pipe) == -1)
-		return (-1);
-	write(info->current_pipe[1], NULL, 0);
-	close(info->current_pipe[1]);
-	dup2(info->current_pipe[0], info->infile_fd);
-	return (1);
-}
 
 int	file_handler_in(t_info *info)
 {
@@ -52,10 +42,12 @@ int	file_handler_out(t_info *info)
 		info->allow_last = 0;
 		return (handle_error_pipe(info));
 	}
+	else if (param_is_heredoc(info) && access(info->outfile, F_OK) != -1)
+		info->outfile_fd = open(info->outfile, O_WRONLY | O_APPEND);
 	else if (access(info->outfile, F_OK) != -1)
 		info->outfile_fd = open(info->outfile, O_WRONLY | O_TRUNC);
 	else
-		info->outfile_fd = open(info->outfile, O_WRONLY | O_CREAT, 0755);
+		info->outfile_fd = open(info->outfile, O_WRONLY | O_CREAT, 0644);
 	if (info->outfile_fd == -1)
 	{
 		perror(info->exec_name);

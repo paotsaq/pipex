@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 07:54:39 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 20:24:42 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 14:43:41 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	check_valid_command(t_info *info, char *command)
 			&& access(info->concatenated_path, X_OK) == 0)
 			return (1);
 	}
-	print_stdout_error(info, FILE_OR_DIR, command);
 	return (-1);
 }
 
@@ -51,10 +50,20 @@ int	commands_handler(t_info *info)
 	prepare_command(info, &split_command);
 	if (!split_command)
 		return (-1);
-	check_valid_command(info, split_command[0]);
-	if (pipe(info->current_pipe) == -1)
-		return (-1);
-	execute_command(info, split_command);
+	if (check_valid_command(info, split_command[0]) == -1)
+	{
+		handle_error_pipe(info);
+		print_stdout_error(info, COMMAND_NOT_FOUND, split_command[0]);
+		info->command_count++;
+	}
+	else
+	{
+		if (info->skip_pipe_creation == 1)
+			info->skip_pipe_creation = 0;
+		else if (pipe(info->current_pipe) == -1)
+			return (-1);
+		execute_command(info, split_command);
+	}
 	free(split_command);
 	return (1);
 }

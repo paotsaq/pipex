@@ -6,7 +6,7 @@
 /*   By: apinto <apinto@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 00:26:20 by apinto            #+#    #+#             */
-/*   Updated: 2021/07/31 22:22:10 by apinto           ###   ########.fr       */
+/*   Updated: 2021/08/02 13:13:16 by apinto           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	execute_command(t_info *info, char **command)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (BONUS && command_is_heredoc_command(info))
+		if (param_is_heredoc(info) && command_is_heredoc_command(info))
 			dup2(info->heredoc_pipe[0], STDIN_FILENO);
 		else if (command_is_first(info))
 			dup2(info->infile_fd, STDIN_FILENO);
@@ -56,7 +56,7 @@ int	execute_command(t_info *info, char **command)
 		else
 			dup2(info->current_pipe[1], STDOUT_FILENO);
 		if (!((command_is_first(info) && !info->allow_first)
-				&& (command_is_last(info) && !info->allow_last)))
+				|| (command_is_last(info) && !info->allow_last)))
 			execve(info->concatenated_path, command, info->envp);
 	}
 	wait(NULL);
