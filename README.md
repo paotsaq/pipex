@@ -21,11 +21,11 @@ Thank you for your understanding. But I do have some tips regarding the project,
 Since this is not Moulinette evaluted, I took some liberty with figuring out what the behaviour of the pipe is, in normal conditions. 
 
 Mind you that:
-	- if the <code>infile</code> doesn't exist, every command still runs, albeit with no input for the first command;
-	- if the <code>outfile</code> doesn't exist, it must be created. New outfiles are created with <code>644</code> permissions, which is easy to overlook;
-	- if the <code>outfile</code> exists, it gets overwritten, but the file keeps the same permissions it had before (granted it had, at least, read and write permissions).
-	- if the <code>outfile</code> exists, but without the necessary permissions, the last command won't run.
-	- if any of the commands in longer pipes (> 2 commands) do not exist or fail for any reason, a null input is fed onto the next command.
+- if the <code>infile</code> doesn't exist, every command still runs, albeit with no input for the first command;
+- if the <code>outfile</code> doesn't exist, it must be created. New outfiles are created with <code>644</code> permissions, which is easy to overlook;
+- if the <code>outfile</code> exists, it gets overwritten, but the file keeps the same permissions it had before (granted it had, at least, read and write permissions).
+- if the <code>outfile</code> exists, but without the necessary permissions, the last command won't run.
+- if any of the commands in longer pipes (> 2 commands) do not exist or fail for any reason, a null input is fed onto the next command.
 
 Other than this specific behaviour, there are some general tips: the <code>access</code> function is great to assess whether a file exists and/or has sufficient permissions; some commands are very useful for debugging, such as <code>mkdir</code>, or <code>touch</code>, because they produce palpable results. Of course, be wary to compare the built-in piping tool with your own.
 
