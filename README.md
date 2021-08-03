@@ -1,4 +1,4 @@
-## C Pipes are very neat litle things... 👨‍💻
+## C Pipes are very neat little things... 👨‍💻
 
 ...hence, I bring you some notes that helped throughout the whole thing. This is, again, a 42 assignment, one where the piping mechanism of the shell must be replicated using C tools. It is an easy assignment to grasp, and it doesn't take very long - that is, if you debug it properly and make good decisions about your implementations (which I'm not really sure happened in this case).
 
